@@ -1,0 +1,63 @@
+{
+  "name": "dtv",
+  "productName": "DTV",
+  "version": "1.0.0",
+  "description": "DTV \u2013 a fast, good-looking IPTV player for Xtream Codes playlists",
+  "main": "main.js",
+  "author": {
+    "name": "DTV",
+    "email": "dtv@example.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis portable --x64",
+    "dist:mac": "electron-builder --mac dmg",
+    "dist:linux": "electron-builder --linux AppImage"
+  },
+  "dependencies": {
+    "@fontsource/bricolage-grotesque": "^5.1.0",
+    "@fontsource/figtree": "^5.1.0",
+    "hls.js": "^1.5.17",
+    "mpegts.js": "^1.7.3"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "app.dtv.player",
+    "productName": "DTV",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "build/icon.png",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "mac": {
+      "icon": "build/icon.png",
+      "category": "public.app-category.entertainment"
+    },
+    "linux": {
+      "icon": "build/icon.png",
+      "category": "AudioVideo"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "DTV",
+      "artifactName": "DTV-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "DTV-Portable.${ext}"
+    }
+  }
+}
