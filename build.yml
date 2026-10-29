@@ -1,0 +1,100 @@
+name: Build DTV
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  firetv:
+    name: Fire TV / Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Get the player libraries and fonts
+        run: npm install --no-audit --no-fund --omit=dev --ignore-scripts
+
+      - name: Copy the DTV interface into the Android app
+        run: node android/prepare-web.js
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build the APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Name the APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk DTV-FireTV.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firetv
+          path: DTV-FireTV.apk
+
+  windows:
+    name: Windows app
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install
+        run: npm install --no-audit --no-fund
+
+      - name: Build installer and portable app
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: npx electron-builder --win nsis portable --x64 --publish never
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            dist/DTV-Setup.exe
+            dist/DTV-Portable.exe
+
+  release:
+    name: Publish download links
+    needs: [firetv, windows]
+    if: always() && needs.firetv.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: dtv-${{ github.run_number }}
+          name: DTV build ${{ github.run_number }}
+          make_latest: "true"
+          fail_on_unmatched_files: false
+          files: |
+            out/DTV-FireTV.apk
+            out/DTV-Setup.exe
+            out/DTV-Portable.exe
+          body: |
+            **Fire TV / Android:** `DTV-FireTV.apk`
+            **Windows:** `DTV-Setup.exe` (installer) or `DTV-Portable.exe` (no install)
+
+            Permanent link to the newest APK (use this in the Downloader app):
+            https://github.com/${{ github.repository }}/releases/latest/download/DTV-FireTV.apk
