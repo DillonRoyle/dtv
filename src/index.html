@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file: data: blob:; img-src * data: blob:; media-src * blob: data:; connect-src *; script-src 'self' file: 'unsafe-inline'; style-src 'self' file: 'unsafe-inline'; font-src 'self' file: data:; worker-src 'self' blob: file:">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DTV</title>
+  <link rel="stylesheet" href="../node_modules/@fontsource/bricolage-grotesque/500.css">
+  <link rel="stylesheet" href="../node_modules/@fontsource/bricolage-grotesque/700.css">
+  <link rel="stylesheet" href="../node_modules/@fontsource/bricolage-grotesque/800.css">
+  <link rel="stylesheet" href="../node_modules/@fontsource/figtree/400.css">
+  <link rel="stylesheet" href="../node_modules/@fontsource/figtree/500.css">
+  <link rel="stylesheet" href="../node_modules/@fontsource/figtree/600.css">
+  <link rel="stylesheet" href="../node_modules/@fontsource/figtree/700.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="../node_modules/hls.js/dist/hls.min.js"></script>
+  <script src="../node_modules/mpegts.js/dist/mpegts.js"></script>
+</head>
+<body>
+  <div class="titlebar"><span class="titlebar-name">DTV</span></div>
+
+  <!-- Playlist login -->
+  <section id="login" class="screen login" hidden>
+    <div class="login-brand">
+      <div class="wordmark wordmark-xl"><span>DTV</span><i class="tally"></i></div>
+      <p class="login-tag">Live TV, films and series from your Xtream Codes playlist.</p>
+      <ul class="login-points">
+        <li>Works with any Xtream Codes server</li>
+        <li>Channels open in about a second</li>
+        <li>Favourites and resume, saved per playlist</li>
+      </ul>
+    </div>
+    <div class="login-panel">
+      <div class="saved" id="saved" hidden>
+        <h2 class="h-sm">Your playlists</h2>
+        <div class="saved-list" id="savedList"></div>
+      </div>
+      <form id="loginForm" class="form" autocomplete="off" novalidate>
+        <div class="form-head">
+          <button type="button" class="icon-btn" id="loginBack" hidden title="Back"></button>
+          <h1 class="h-md" id="formTitle">Add a playlist</h1>
+        </div>
+        <label class="field">
+          <span>Server URL</span>
+          <input name="host" placeholder="http://yourprovider.com:8080" spellcheck="false" required>
+          <small class="hint">Paste a full M3U link here and the rest fills in for you.</small>
+        </label>
+        <div class="field-row">
+          <label class="field"><span>Username</span><input name="username" spellcheck="false" required></label>
+          <label class="field pw"><span>Password</span>
+            <input name="password" type="password" spellcheck="false" required>
+            <button type="button" class="pw-eye" tabindex="-1" title="Show password"></button>
+          </label>
+        </div>
+        <label class="field"><span>Playlist name <em>optional</em></span><input name="name" placeholder="e.g. Big1, Zumtv"></label>
+        <p class="form-error" id="formError" hidden></p>
+        <button class="btn btn-primary btn-lg" type="submit" id="loginSubmit"><span>Connect</span></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- App -->
+  <section id="main" class="screen main" hidden>
+    <nav class="rail">
+      <div class="wordmark"><span>DTV</span><i class="tally"></i></div>
+      <div class="rail-nav">
+        <button class="rail-btn" data-nav="live"><span class="rail-ic" data-ic="live"></span><span>Live TV</span></button>
+        <button class="rail-btn" data-nav="movie"><span class="rail-ic" data-ic="movie"></span><span>Movies</span></button>
+        <button class="rail-btn" data-nav="series"><span class="rail-ic" data-ic="series"></span><span>Series</span></button>
+      </div>
+      <div class="rail-foot">
+        <button class="rail-btn" data-nav="settings"><span class="rail-ic" data-ic="settings"></span><span>Settings</span></button>
+        <button class="rail-profile" id="railProfile" title="Switch playlist"></button>
+      </div>
+    </nav>
+
+    <div class="view live" id="view-live" hidden>
+      <aside class="cats">
+        <div class="cats-head"><h2 class="h-col">Live TV</h2></div>
+        <div class="cat-list" data-cats="live"></div>
+      </aside>
+      <div class="chan-col">
+        <div class="col-head">
+          <label class="search"><span data-ic="search"></span><input data-search="live" placeholder="Search channels" spellcheck="false"></label>
+        </div>
+        <div class="col-title"><span class="col-title-name"></span><span class="col-count"></span></div>
+        <div class="chan-list"></div>
+        <div class="col-state" hidden></div>
+      </div>
+      <div class="stage">
+        <div class="stage-slot">
+          <div class="stage-empty">
+            <div class="stage-empty-mark"></div>
+            <p>Choose a channel to start watching</p>
+            <small>↑ ↓ to browse, Enter for full screen</small>
+          </div>
+        </div>
+        <div class="stage-info" hidden></div>
+      </div>
+    </div>
+
+    <div class="view lib" id="view-movie" hidden data-kind="movie"></div>
+    <div class="view lib" id="view-series" hidden data-kind="series"></div>
+    <div class="view settings" id="view-settings" hidden></div>
+  </section>
+
+  <div id="player"></div>
+  <div id="sheet" class="sheet" hidden></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
