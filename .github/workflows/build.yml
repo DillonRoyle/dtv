@@ -38,13 +38,21 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon --stacktrace
 
-      - name: Name the APK
-        run: cp android/app/build/outputs/apk/release/app-release.apk DTV-FireTV.apk
+      - name: Name the APK and pack the screens for automatic updates
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk DTV-FireTV.apk
+          (cd android/app/src/main/assets/www && zip -qr "$GITHUB_WORKSPACE/DTV-web.zip" .)
+          NATIVE=$(tr -d '[:space:]' < android/native-version.txt)
+          echo "{\"web\": ${{ github.run_number }}, \"minNative\": $NATIVE, \"apk\": $NATIVE}" > dtv-version.json
+          cat dtv-version.json
 
       - uses: actions/upload-artifact@v4
         with:
           name: firetv
-          path: DTV-FireTV.apk
+          path: |
+            DTV-FireTV.apk
+            DTV-web.zip
+            dtv-version.json
 
   windows:
     name: Windows app
@@ -90,6 +98,8 @@ jobs:
           fail_on_unmatched_files: false
           files: |
             out/DTV-FireTV.apk
+            out/DTV-web.zip
+            out/dtv-version.json
             out/DTV-Setup.exe
             out/DTV-Portable.exe
           body: |

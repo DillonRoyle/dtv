@@ -3,6 +3,10 @@ plugins {
 }
 
 def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
+// Bump android/native-version.txt only when the Java/player side changes.
+// Screen-only changes keep it the same, so the Firestick updates itself without a reinstall.
+def nativeVersion = rootProject.file('native-version.txt').text.trim().toInteger()
+def repo = System.getenv('GITHUB_REPOSITORY') ?: 'DillonRoyle/dtv'
 
 android {
     namespace 'app.dtv.tv'
@@ -12,8 +16,15 @@ android {
         applicationId 'app.dtv.tv'
         minSdk 21
         targetSdk 34
-        versionCode runNumber
-        versionName "1.0.${runNumber}"
+        versionCode nativeVersion
+        versionName "1.${nativeVersion}.${runNumber}"
+        buildConfigField 'int', 'NATIVE_VERSION', "${nativeVersion}"
+        buildConfigField 'int', 'WEB_VERSION', "${runNumber}"
+        buildConfigField 'String', 'UPDATE_BASE', "\"https://github.com/${repo}/releases/latest/download/\""
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     signingConfigs {
@@ -57,4 +68,5 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer-hls:$media3"
     implementation "androidx.media3:media3-ui:$media3"
     implementation 'androidx.annotation:annotation:1.8.2'
+    implementation 'androidx.core:core:1.13.1'
 }

@@ -101,9 +101,18 @@ public class Bridge {
                 resolve(id, ok(), null);
                 return;
             }
+            case "ready":
+                act.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        act.onPageReady();
+                    }
+                });
+                resolve(id, ok(), null);
+                return;
             case "info": {
                 JSONObject o = ok();
-                o.put("version", act.versionName());
+                o.put("version", act.versionName() + " (screens " + act.interfaceVersion() + ")");
                 resolve(id, o, null);
                 return;
             }

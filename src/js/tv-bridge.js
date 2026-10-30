@@ -64,6 +64,8 @@
       return { version: r.version || '', platform: 'android-tv' };
     },
     onFullscreen() {},
+    /** Tells the app the interface started fine (used to roll back a broken update). */
+    ready: () => call('ready', []),
     /** Hand playback to the native full-screen player. Resolves when the viewer comes back. */
     nativePlay: async (opts) => parse((await call('play', [JSON.stringify(opts)])).text) || {},
   };

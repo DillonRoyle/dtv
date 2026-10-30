@@ -58,6 +58,7 @@ async function boot() {
   const last = S.profiles.find((p) => p.id === S.settings.lastProfile) || S.profiles[0];
   if (last) openProfile(last);
   else showLogin();
+  if (N && N.ready) N.ready();
 }
 
 // ---------------------------------------------------------------- toast
