@@ -1,0 +1,44 @@
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/Sintel.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/TearsOfSteel.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerMeltdowns.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4: Server returned 403 Forbidden (access de | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/SubaruOutbackOnStreetAndDirt.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/VolkswagenGTIReview.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4: Server returned 403 Forbidden (access denied)  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/WeAreGoingOnBullrun.jpg
+403 application/xml; charset=UTF-8 | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4: Server returned 403 Forbidden (access denie | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4
+403 application/xml; charset=UTF-8 |  | https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/WhatCarCanYouGetForAGrand.jpg
+206 audio/mpegurl | aac h264,1280,720  aac h264,320,184  aac h264,512,288  aac h264,848,480  aac h264,1920,1080  aac h264,1280,720 aac h264,320,184 aac h264,512 | https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+206 audio/mpegurl | aac h264,1920,800  aac h264,1920,800  | https://test-streams.mux.dev/tos_ismc/main.m3u8
+206 audio/mpegurl | h264,416,234 aac  h264,416,234 aac  h264,416,234 aac  h264,640,360 aac  h264,640,360 aac  h264,640,360 aac  h264,416,234 aac h264,416,234 aa | https://test-streams.mux.dev/test_001/stream.m3u8
+206 application/x-mpegURL | aac aac h264,416,234 timed_id3  aac aac h264,640,360 timed_id3  aac aac h264,960,540 timed_id3  aac aac h264,1280,720 timed_id3  aac aac h26 | https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8
+206 application/x-mpegURL | h264,960,540 aac  h264,1920,1080 aac  h264,1920,1080 aac  h264,1920,1080 aac  h264,1280,720 aac  h264,768,432 aac  h264,640,360 aac  h264,48 | https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8
+206 application/x-mpegURL | h264,960,540 aac  h264,1920,1080 aac  h264,1920,1080 aac  h264,1920,1080 aac  h264,1280,720 aac  h264,768,432 aac  h264,640,360 aac  h264,48 | https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8
+200 application/x-mpegURL | https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8: Server returned 404 Not Found  | https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8
+206 application/vnd.apple.mpegurl | aac h264,224,100  aac h264,448,200  aac h264,784,350  aac h264,1680,750  aac h264,1680,750  aac timed_id3  aac timed_id3  aac h264,224,100 a | https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8
+403 text/html; charset=UTF-8 | https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8: Server returned 403 Forbidden (access denied)  | https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8
+403 text/html | https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8: Server returned 403 Forbidden (access denied)  | https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8
+403 text/html; charset=UTF-8 | https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8: Server returned  | https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+206 application/x-mpegURL | aac aac aac aac aac aac h264,768,576  aac aac aac aac aac aac h264,640,480  aac aac aac aac aac aac h264,480,360  aac aac aac aac aac aac h2 | https://storage.googleapis.com/shaka-demo-assets/angel-one-hls/hls.m3u8
+206 application/x-mpegurl | aac aac aac timed_id3 h264,1280,720  aac aac aac timed_id3 h264,768,432  aac aac aac timed_id3 h264,448,252  aac aac aac timed_id3 h264,284, | https://playertest.longtailvideo.com/adaptive/elephants_dream_v4/index.m3u8
+206 audio/x-mpegurl | h264,256,144 aac  h264,426,240 aac  h264,640,360 aac  h264,854,480 aac  h264,1280,720 aac  h264,1920,1080 aac  h264,2560,1440 aac  h264,3840 | http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8
+206 video/mp4 | h264,1280,720 aac  | https://download.blender.org/durian/trailer/sintel_trailer-720p.mp4
+206 video/mp4 | h264,1280,720  | https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4
+206 video/mp4 | [mov,mp4,m4a,3gp,3g2,mj2 @ 0x55eb77b518c0] Referenced QT chapter track not found h264,1280,720  | https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4
+206 video/mp4 | h264,1280,720  | https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4
