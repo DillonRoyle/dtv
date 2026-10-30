@@ -1,4 +1,5 @@
 // Xtream Codes API client + helpers
+import { isDemoHost, demoApi } from './demo.js';
 const native = typeof window !== 'undefined' && window.dtv;
 
 /** Turn whatever the user pasted into a clean "http(s)://host:port" base. */
@@ -88,6 +89,13 @@ export class Xtream {
     this.host = normalizeHost(host);
     this.username = username;
     this.password = password;
+    // Built-in demo playlist: server "demo", username "demo", password "demo"
+    this.demo = isDemoHost(host);
+    if (this.demo) {
+      const ok = String(username).trim().toLowerCase() === 'demo' && String(password).trim().toLowerCase() === 'demo';
+      for (const k of Object.keys(demoApi)) this[k] = demoApi[k].bind(demoApi);
+      if (!ok) this.auth = async () => ({ user_info: { auth: 0 } });
+    }
   }
   api(action, params = {}) {
     let u = `${this.host}/player_api.php?username=${enc(this.username)}&password=${enc(this.password)}`;

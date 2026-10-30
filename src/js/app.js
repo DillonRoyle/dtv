@@ -615,6 +615,10 @@ function selectLive(i, now = false) {
 }
 
 function liveSources(it) {
+  if (S.xt.demo) {
+    const url = S.xt.liveUrl(it.i);
+    return [{ url, type: /\.m3u8/.test(url) ? 'hls' : 'file' }];
+  }
   const f = S.settings.liveFormat;
   const ts = { url: S.xt.liveUrl(it.i, 'ts'), type: 'ts' };
   const hls = { url: S.xt.liveUrl(it.i, 'm3u8'), type: 'hls' };
