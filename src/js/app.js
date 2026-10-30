@@ -43,9 +43,7 @@ else boot();
 async function boot() {
   if (booted) return;
   booted = true;
-  // remove the opening animation once it has played
-  const intro = document.getElementById('intro');
-  if (intro) setTimeout(() => intro.remove(), 2400);
+  const introDone = playIntro();
   document.body.classList.add(`os-${N?.platform || 'web'}`);
   if (TV) setupTv();
   $$('[data-ic]').forEach((el) => (el.innerHTML = icon(el.dataset.ic)));
@@ -58,10 +56,36 @@ async function boot() {
   setupPlayer();
   setupKeys();
 
+  if (N && N.ready) N.ready();
+  // Load channels only after the letters have flown off, so the animation gets the device to itself
+  await introDone;
   const last = S.profiles.find((p) => p.id === S.settings.lastProfile) || S.profiles[0];
   if (last) openProfile(last);
   else showLogin();
-  if (N && N.ready) N.ready();
+}
+
+/** Plays the DTV opening animation. Resolves as soon as the letters have left the screen. */
+function playIntro() {
+  const el = document.getElementById('intro');
+  if (!el) return Promise.resolve();
+  let reduce = false;
+  try {
+    reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch {}
+  if (reduce) {
+    el.remove();
+    return Promise.resolve();
+  }
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  // wait for DTV's own font (so the letters don't change shape mid-animation), but never long
+  const font = document.fonts && document.fonts.load ? document.fonts.load('800 100px "Bricolage Grotesque"').catch(() => {}) : null;
+  return Promise.race([font || Promise.resolve(), wait(700)])
+    .then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))))
+    .then(() => {
+      el.classList.add('play');
+      setTimeout(() => el.remove(), 2400);
+      return wait(1850); // letters gone, overlay fading: start loading underneath
+    });
 }
 
 // ---------------------------------------------------------------- toast
