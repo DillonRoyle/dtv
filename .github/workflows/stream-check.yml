@@ -2,21 +2,25 @@ name: Stream check (temporary)
 on:
   push:
     branches: [stream-check]
+permissions:
+  contents: write
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Install ffprobe
         run: which ffprobe || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null)
       - name: Check every demo stream and image
         shell: bash
         run: |
+          set +e +o pipefail
           check() {
             local url="$1"
             local head=$(curl -sS -L -o /dev/null -r 0-65535 --max-time 20 -A "Mozilla/5.0 (Linux; Android 9; AFTKA)" -w "%{http_code} %{content_type}" "$url" 2>&1)
             local probe=""
             case "$url" in *.jpg|*.png) ;; *) probe=$(timeout 40 ffprobe -v error -user_agent "Mozilla/5.0 (Linux; Android 9; AFTKA)" -show_entries stream=codec_name,width,height -of csv=p=0 "$url" 2>&1 | tr '\n' ' ' | cut -c1-140);; esac
-            echo "RESULT | $head | $probe | $url"
+            echo "$head | $probe | $url" | tee -a results.txt
           }
           G=https://commondatastorage.googleapis.com/gtv-videos-bucket/sample
           for f in BigBuckBunny ElephantsDream Sintel TearsOfSteel ForBiggerBlazes ForBiggerEscapes ForBiggerFun ForBiggerJoyrides ForBiggerMeltdowns SubaruOutbackOnStreetAndDirt VolkswagenGTIReview WeAreGoingOnBullrun WhatCarCanYouGetForAGrand; do
@@ -42,3 +46,8 @@ jobs:
             https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4 \
             https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4 \
             ; do check "$u"; done
+      - name: Save results
+        if: always()
+        run: |
+          git config user.name "stream-check"; git config user.email "actions@github.com"
+          git add results.txt && git commit -qm "Stream check results [skip ci]" && git push -q
