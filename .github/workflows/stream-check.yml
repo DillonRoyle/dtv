@@ -1,0 +1,44 @@
+name: Stream check (temporary)
+on:
+  push:
+    branches: [stream-check]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install ffprobe
+        run: which ffprobe || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null)
+      - name: Check every demo stream and image
+        shell: bash
+        run: |
+          check() {
+            local url="$1"
+            local head=$(curl -sS -L -o /dev/null -r 0-65535 --max-time 20 -A "Mozilla/5.0 (Linux; Android 9; AFTKA)" -w "%{http_code} %{content_type}" "$url" 2>&1)
+            local probe=""
+            case "$url" in *.jpg|*.png) ;; *) probe=$(timeout 40 ffprobe -v error -user_agent "Mozilla/5.0 (Linux; Android 9; AFTKA)" -show_entries stream=codec_name,width,height -of csv=p=0 "$url" 2>&1 | tr '\n' ' ' | cut -c1-140);; esac
+            echo "RESULT | $head | $probe | $url"
+          }
+          G=https://commondatastorage.googleapis.com/gtv-videos-bucket/sample
+          for f in BigBuckBunny ElephantsDream Sintel TearsOfSteel ForBiggerBlazes ForBiggerEscapes ForBiggerFun ForBiggerJoyrides ForBiggerMeltdowns SubaruOutbackOnStreetAndDirt VolkswagenGTIReview WeAreGoingOnBullrun WhatCarCanYouGetForAGrand; do
+            check "$G/$f.mp4"; check "$G/images/$f.jpg"
+          done
+          for u in \
+            https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8 \
+            https://test-streams.mux.dev/tos_ismc/main.m3u8 \
+            https://test-streams.mux.dev/test_001/stream.m3u8 \
+            https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8 \
+            https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8 \
+            https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8 \
+            https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 \
+            https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8 \
+            https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8 \
+            https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8 \
+            https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8 \
+            https://storage.googleapis.com/shaka-demo-assets/angel-one-hls/hls.m3u8 \
+            https://playertest.longtailvideo.com/adaptive/elephants_dream_v4/index.m3u8 \
+            http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8 \
+            https://download.blender.org/durian/trailer/sintel_trailer-720p.mp4 \
+            https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4 \
+            https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4 \
+            https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4 \
+            ; do check "$u"; done
