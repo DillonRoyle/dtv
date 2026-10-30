@@ -19,32 +19,48 @@ jobs:
             local url="$1"
             local head=$(curl -sS -L -o /dev/null -r 0-65535 --max-time 20 -A "Mozilla/5.0 (Linux; Android 9; AFTKA)" -w "%{http_code} %{content_type}" "$url" 2>&1)
             local probe=""
-            case "$url" in *.jpg|*.png) ;; *) probe=$(timeout 40 ffprobe -v error -user_agent "Mozilla/5.0 (Linux; Android 9; AFTKA)" -show_entries stream=codec_name,width,height -of csv=p=0 "$url" 2>&1 | tr '\n' ' ' | cut -c1-140);; esac
+            case "$url" in *.jpg*|*.png*|*services/img*) ;; *) probe=$(timeout 40 ffprobe -v error -user_agent "Mozilla/5.0 (Linux; Android 9; AFTKA)" -show_entries stream=codec_name,width,height -of csv=p=0 "$url" 2>&1 | tr '\n' ' ' | cut -c1-140);; esac
             echo "$head | $probe | $url" | tee -a results.txt
           }
-          G=https://commondatastorage.googleapis.com/gtv-videos-bucket/sample
-          for f in BigBuckBunny ElephantsDream Sintel TearsOfSteel ForBiggerBlazes ForBiggerEscapes ForBiggerFun ForBiggerJoyrides ForBiggerMeltdowns SubaruOutbackOnStreetAndDirt VolkswagenGTIReview WeAreGoingOnBullrun WhatCarCanYouGetForAGrand; do
-            check "$G/$f.mp4"; check "$G/images/$f.jpg"
-          done
           for u in \
-            https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8 \
-            https://test-streams.mux.dev/tos_ismc/main.m3u8 \
-            https://test-streams.mux.dev/test_001/stream.m3u8 \
-            https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8 \
-            https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8 \
-            https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8 \
-            https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 \
-            https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8 \
-            https://cdn.bitmovin.com/content/assets/sintel/hls/playlist.m3u8 \
-            https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8 \
-            https://cdn.bitmovin.com/content/assets/art-of-motion-dash-hls-progressive/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8 \
-            https://storage.googleapis.com/shaka-demo-assets/angel-one-hls/hls.m3u8 \
-            https://playertest.longtailvideo.com/adaptive/elephants_dream_v4/index.m3u8 \
-            http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8 \
-            https://download.blender.org/durian/trailer/sintel_trailer-720p.mp4 \
-            https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4 \
-            https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4 \
-            https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4 \
+            'https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4' \
+            'https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_h264.mov' \
+            'https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_640x360.m4v' \
+            'https://download.blender.org/durian/movies/Sintel.2010.720p.mkv' \
+            'https://download.blender.org/durian/movies/sintel-1024-surround.mp4' \
+            'https://download.blender.org/mango/movies/tears_of_steel_720p.mov' \
+            'http://ftp.nluug.nl/pub/graphics/blender/demo/movies/ToS/tears_of_steel_720p.mov' \
+            'https://download.blender.org/ED/ED_1024.avi' \
+            'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4' \
+            'https://archive.org/download/ElephantsDream/ed_hd.mp4' \
+            'https://archive.org/download/ElephantsDream/ed_1024_512kb.mp4' \
+            'https://archive.org/download/Sintel/sintel-2048-surround.mp4' \
+            'https://archive.org/download/Sintel/sintel-2048-stereo_512kb.mp4' \
+            'https://archive.org/download/Tears-of-Steel/tears_of_steel_720p.mp4' \
+            'https://archive.org/download/CosmosLaundromat/Cosmos%20Laundromat.mp4' \
+            'https://archive.org/download/caminandes-llamigos/01_llama_drama_1080p.mp4' \
+            'https://archive.org/download/Caminandes2GranDillama/02_gran_dillama_1080p.mp4' \
+            'https://archive.org/download/caminandes-3-llamigos/03_caminandes_llamigos_1080p.mp4' \
+            'https://test-videos.co.uk/vids/jellyfish/mp4/h264/1080/Jellyfish_1080_10s_5MB.mp4' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Big_buck_bunny_poster_big.jpg?width=400' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Sintel_poster.jpg?width=400' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Elephants_Dream_s5_both.jpg?width=400' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Tos-poster.png?width=400' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Tears_of_Steel_poster.jpg?width=400' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Cosmos_Laundromat_poster.jpg?width=400' \
+            'https://commons.wikimedia.org/wiki/Special:FilePath/Caminandes_Llama_Drama_poster.jpg?width=400' \
+            'https://peach.blender.org/wp-content/uploads/bbb-splash.png' \
+            'https://durian.blender.org/wp-content/uploads/2010/06/05.8b_comp_000272.jpg' \
+            'https://mango.blender.org/wp-content/uploads/2013/05/01_thom_celia_bridge.jpg' \
+            'https://orange.blender.org/wp-content/themes/orange/images/media/gallery/s1_proog.jpg' \
+            'https://archive.org/services/img/BigBuckBunny_124' \
+            'https://archive.org/services/img/ElephantsDream' \
+            'https://archive.org/services/img/Sintel' \
+            'https://archive.org/services/img/Tears-of-Steel' \
+            'https://archive.org/services/img/CosmosLaundromat' \
+            'https://archive.org/services/img/caminandes-llamigos' \
+            'https://archive.org/services/img/Caminandes2GranDillama' \
+            'https://archive.org/services/img/caminandes-3-llamigos' \
             ; do check "$u"; done
       - name: Save results
         if: always()
