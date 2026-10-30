@@ -43,6 +43,9 @@ else boot();
 async function boot() {
   if (booted) return;
   booted = true;
+  // remove the opening animation once it has played
+  const intro = document.getElementById('intro');
+  if (intro) setTimeout(() => intro.remove(), 2400);
   document.body.classList.add(`os-${N?.platform || 'web'}`);
   if (TV) setupTv();
   $$('[data-ic]').forEach((el) => (el.innerHTML = icon(el.dataset.ic)));
